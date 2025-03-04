@@ -1,21 +1,30 @@
 // store/reducers/textReducer.js
-import { UPDATE_TEXT } from "../actions";
+import { UPDATE_TEXT, FETCH_TEXT_SUCCESS, FETCH_TEXT_ERROR } from "../actions";
 
-// Initial State (default value)
 const initialState = {
   text: "Initial Redux State",
+  error: null,
 };
 
-// Reducer Function (modifies state based on actions)
 const textReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_TEXT:
       return {
-        ...state,   // Keep previous state
-        text: action.payload,  // Update the `text` property
+        ...state,
+        text: action.payload,
+      };
+    case FETCH_TEXT_SUCCESS:
+      return {
+        ...state,
+        text: action.payload,  // Update state with fetched data
+      };
+    case FETCH_TEXT_ERROR:
+      return {
+        ...state,
+        error: action.payload,  // Store error message
       };
     default:
-      return state;  // Return the same state if action is not recognized
+      return state;
   }
 };
 
